@@ -11,8 +11,22 @@
 
 - Clone project from GitHub
 
-- Run composer install
+- Create .env
 
-- Run ./vendor/bin/sail up -d
+`cp .env.example .env`
+
+- Run
+
+`composer install`
+
+- Run
+
+`./vendor/bin/sail up -d`
 
 - Got to http://localhost
+
+<a href="https://docs.openexchangerates.org/reference/api-introduction">
+## Open Exchange Rates
+</a>
+
+Intead of using suggested API for currency rates, I have found one which does not requere credit card in sign up proccess.
