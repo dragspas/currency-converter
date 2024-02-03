@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GetTransactionsCalculateRequest;
 use App\Http\Requests\PostTransactionsRequest;
 use App\Services\IConversionService;
-use App\Services\ITransactionsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 

@@ -26,8 +26,8 @@ class ExchangeRatesService implements IExchangeRatesService
             $offset = 0;
             $exchangeRatesToUpdate = collect();
             do {
-                // @note 
-                // to improve scalability and speed up process, 
+                // @note
+                // to improve scalability and speed up process,
                 // we could here create message with limit/offset and send it to queue
                 // in that case, we could parrallelize the process
                 // but for simplicity, I will do chunk by chunk
@@ -51,7 +51,7 @@ class ExchangeRatesService implements IExchangeRatesService
                 $offset += $limit;
             } while ($exchangeRatesToUpdate->count() === $limit);
         } catch (\Exception $e) {
-            // @note 
+            // @note
             // Error messages (text) could be in separate file
             Log::error('Failed to update exchange rates.', [
                 'offset' => $offset,

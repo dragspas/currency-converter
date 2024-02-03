@@ -30,7 +30,7 @@ class ProxyService implements IProxyService
                 return false;
             }
 
-            // @note 
+            // @note
             // we could do here a refresh token and return true
 
             return false;

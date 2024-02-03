@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\Db\Flag;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GetCurrenciesConvertRequest;
 use App\Http\Requests\GetCurrenciesRequest;
 use App\Services\ICurrenciesService;
 use Illuminate\Http\JsonResponse;

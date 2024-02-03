@@ -10,7 +10,8 @@ use Illuminate\Support\Collection;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, ValidatesRequests;
+    use AuthorizesRequests;
+    use ValidatesRequests;
 
     protected function getErrorResponse(int $code, string $message): JsonResponse
     {
