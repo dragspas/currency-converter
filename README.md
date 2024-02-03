@@ -4,7 +4,7 @@
 
 - Clone project from GitHub https://github.com/dragspas/currency-converter
 
-- Create .env file, will not be included in the repo, but I will send you it separately
+- Create .env file, will not be included in the repo
 
 ```
 cp .env.example .env
