@@ -3,6 +3,7 @@
 namespace App\Repository;;
 
 use Illuminate\Database\Query\Builder;
+use stdClass;
 
 abstract class BaseRepository
 {
