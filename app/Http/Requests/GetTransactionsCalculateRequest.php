@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class GetCurrenciesConvertRequest extends ApiRequest
+class GetTransactionsCalculateRequest extends ApiRequest
 {
     /**
      * Get the validation rules that apply to the request.

@@ -56,7 +56,7 @@
 
                                 <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white mb-3">Currency converter</h2>
 
-                                <form method="POST" id="ajax-form">
+                                <form method="POST" id="calculator-form">
                                     @csrf
                                     <div class="input-group mb-3n">
                                         <select class="form-select" aria-label="Select currency" id="to_currency_id" name="to_currency_id">
@@ -112,11 +112,12 @@
                     displayError('Could not load currencies. Please try again.');
                 }
             });
+
             $('#calculate').click(function(e) {
                 var amount = $('#amount').val();
                 var to_currency_id = $('#to_currency_id').val();
                 $.ajax({
-                    url: 'http://localhost/api/v1/currencies/convert?to_currency_id=' + to_currency_id + '&amount=' + amount,
+                    url: 'http://localhost/api/v1/transactions/calculate?to_currency_id=' + to_currency_id + '&amount=' + amount,
                     method: 'GET',
                     dataType: 'json',
                     success: function (response) {
@@ -133,6 +134,28 @@
                 });
             });
 
+            $('#calculator-form').submit(function(e) {
+                e.preventDefault();
+            
+                let formData = new FormData(this);
+                console.log(formData);
+                
+                // $.ajax({
+                //         type:'POST',
+                //         url: url,
+                //         data: formData,
+                //         contentType: false,
+                //         processData: false,
+                //         success: (response) => {
+                //             alert('Form submitted successfully');
+                //             location.reload();
+                //         },
+                        // error: function(response){
+                        //     displayError('Could not purchase. Please try again.');
+                        // }
+                // });
+            });
+
             function displayError(msg) {
                  $('.alert-danger')
                     .text(msg)
@@ -145,31 +168,5 @@
                 }, 5000);
             }
         });
-        // $('#ajax-form').submit(function(e) {
-        //     e.preventDefault();
-        
-        //     let formData = new FormData(this);
-        //     console.log(formData);
-            
-        //     $.ajax({
-        //             type:'POST',
-        //             url: url,
-        //             data: formData,
-        //             contentType: false,
-        //             processData: false,
-        //             success: (response) => {
-        //                 alert('Form submitted successfully');
-        //                 location.reload();
-        //             },
-        //             error: function(response){
-        //                 $('#ajax-form').find(".print-error-msg").find("ul").html('');
-        //                 $('#ajax-form').find(".print-error-msg").css('display','block');
-        //                 $.each( response.responseJSON.errors, function( key, value ) {
-        //                     $('#ajax-form').find(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-        //                 });
-        //             }
-        //     });
-        
-        // });
     </script>
 </html>

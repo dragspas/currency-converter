@@ -24,11 +24,14 @@ class ProxyService implements IProxyService
     protected function retry(): PendingRequest
     {
         return Http::retry(5, 1000, function (\Exception $exception) {
-            Log::warn('Proxy error.', ['message' => $exception->getMessage()]);
+            Log::warning('Proxy error.', ['message' => $exception->getMessage()]);
+
             if (!$exception instanceof RequestException || $exception->response->status() !== 401) {
                 return false;
             }
-            // @note we could do here a refresh token and return true
+
+            // @note 
+            // we could do here a refresh token and return true
 
             return false;
         });

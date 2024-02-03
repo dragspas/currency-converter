@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('code', 3)->index();
             $table->tinyInteger('default')->default(Flag::Off->value);
             $table->decimal('surcharge')->nullable();
+            $table->decimal('discount', 5, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,10 +28,10 @@ return new class extends Migration
         $now = Carbon::now();
 
         DB::table('currencies')->insert([
-            ['id' => 1, 'name' => 'US Dollars', 'code' => 'USD', 'default' => Flag::On->value, 'surcharge' => null, 'created_at' => $now],
-            ['id' => 2, 'name' => 'Euro', 'code' => 'EUR', 'default' => Flag::Off->value, 'surcharge' => 5.0, 'created_at' => $now],
-            ['id' => 3, 'name' => 'British Pound', 'code' => 'GBP', 'default' => Flag::Off->value, 'surcharge' => 5.0, 'created_at' => $now],
-            ['id' => 4, 'name' => 'Japanese Yen', 'code' => 'JPY', 'default' => Flag::Off->value, 'surcharge' => 7.5, 'created_at' => $now],
+            ['id' => 1, 'name' => 'US Dollars', 'code' => 'USD', 'default' => Flag::On->value, 'surcharge' => null, 'discount' => null, 'created_at' => $now],
+            ['id' => 2, 'name' => 'Euro', 'code' => 'EUR', 'default' => Flag::Off->value, 'surcharge' => 5, 'discount' => 2, 'created_at' => $now],
+            ['id' => 3, 'name' => 'British Pound', 'code' => 'GBP', 'default' => Flag::Off->value, 'surcharge' => 5, 'discount' => null, 'created_at' => $now],
+            ['id' => 4, 'name' => 'Japanese Yen', 'code' => 'JPY', 'default' => Flag::Off->value, 'surcharge' => 7.5, 'discount' => null, 'created_at' => $now],
         ]);
 
         Schema::create('exchange_rates', function (Blueprint $table) {

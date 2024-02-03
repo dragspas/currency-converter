@@ -23,7 +23,7 @@ class CurrencyLayerService implements ICurrencyLayerService
         $grouped = $this->groupExchangeRatesByCode($exchangeRates);
 
         foreach ($grouped as $fromCode => $group) {
-            $response = $this->makeExchangeRatesRequest($fromCode, $group['currencies']);
+            $response = $this->makeExchangeRatesRequest($fromCode, implode(',', array_keys($group['currenciesMap'])));
             $output = array_merge($output, $this->prepareForUpdate($group['from_currency_id'], $group['currenciesMap'], $response));
         }
 
@@ -35,7 +35,7 @@ class CurrencyLayerService implements ICurrencyLayerService
         $now = Carbon::now();
         $output = [];
         foreach ($response->quotes as $key => $value) {
-            // romove USD from USDEUR
+            // ex.: remove USD from USDEUR
             $toCode = substr($key, 3);
             $output[] = [
                 'from_currency_id' => $fromCurrencyId,
@@ -50,8 +50,8 @@ class CurrencyLayerService implements ICurrencyLayerService
 
     protected function makeExchangeRatesRequest(string $from, string $currencies)
     {
-        $url = env('EXCHANGE_RATE_CONVERTER_APP_URL');
-        $appId = env('EXCHANGE_RATE_CONVERTER_APP_ID');
+        $appId = config('services.currency_layer.app_id');
+        $url = config('services.currency_layer.base_url');
 
         try {
             $result = $this->proxy->get(
@@ -83,10 +83,8 @@ class CurrencyLayerService implements ICurrencyLayerService
     protected function groupExchangeRatesByCode(Collection $exchangeRates): Collection
     {
         return $exchangeRates->groupBy('from_currency_code')->map(function ($items) {
-
             return [
                 'from_currency_id' => $items->first()->from_currency_id,
-                'currencies' => $items->pluck('to_currency_code')->implode(','),
                 'currenciesMap' => $items->pluck('to_currency_id', 'to_currency_code')->toArray()
             ];
         });

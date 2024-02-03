@@ -36,16 +36,8 @@ class CurrenciesService implements ICurrenciesService
         return $result;
     }
 
-    public function convertFromDefault(int $toCurrencyId, float $amount): float
+    public function getDefaultWithExchangeRate(int $toCurrencyId): stdClass
     {
-        $default = $this->repository->getDefaultWithExchangeRate($toCurrencyId);
-
-        $convertedAmount = round(($amount / $default->rate) * (1 + $default->surcharge / 100), 2);
-
-        if ($convertedAmount === 0.00) {
-            throw new \Exception('Conversion amount is to small.', 201);
-        }
-
-        return $convertedAmount;
+        return $this->repository->getDefaultWithExchangeRate($toCurrencyId);
     }
 }

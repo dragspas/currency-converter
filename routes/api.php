@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CurrenciesController;
+use App\Http\Controllers\Api\TransactionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::prefix('currencies')->name('currencies.')->group(function () {
         Route::get('', [CurrenciesController::class, 'get'])->name('get');
-        Route::get('convert', [CurrenciesController::class, 'convert'])->name('convert');
+    });
+
+    Route::prefix('transactions')->name('transactions.')->group(function () {
+        Route::get('calculate', [TransactionsController::class, 'calculate'])->name('calculate');
+        Route::post('', [TransactionsController::class, 'store'])->name('store');
     });
 });

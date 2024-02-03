@@ -35,7 +35,9 @@ class CurrenciesRepository extends BaseRepository implements ICurrenciesReposito
                 'currencies.id',
                 'currencies.code',
                 'exchange_rates.rate',
+                'to_currency.code as to_currency_code',
                 'to_currency.surcharge',
+                'to_currency.discount',
             ])
             ->join('exchange_rates', function ($join) use ($toCurrencyId) {
                 $join
@@ -43,7 +45,7 @@ class CurrenciesRepository extends BaseRepository implements ICurrenciesReposito
                     ->join('currencies as to_currency', function ($join) use ($toCurrencyId) {
                         $join
                             ->on('exchange_rates.to_currency_id', 'to_currency.id')
-                            ->select(['to_currency.surcharge as surcharge']);
+                            ->select(['to_currency.surcharge', 'to_currency.discount']);
                     })
                     ->where('exchange_rates.to_currency_id', $toCurrencyId)
                     ->whereNull('exchange_rates.deleted_at');

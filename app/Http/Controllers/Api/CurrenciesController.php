@@ -36,22 +36,4 @@ class CurrenciesController extends Controller
             return $this->getErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
-
-    public function convert(GetCurrenciesConvertRequest $request): JsonResponse
-    {
-        try {
-            $validated = $request->validated();
-
-            $convertedAmount = $this->currenciesService->convertFromDefault($validated['to_currency_id'], $validated['amount']);
-
-            return $this->getSuccessResponse(['amount' => $convertedAmount]);
-        } catch (\Exception $exception) {
-            Log::error('GET /api/v1/currencies/convert failed.', [
-                ...$validated,
-                'message' => $exception->getMessage(),
-            ]);
-
-            return $this->getErrorResponse($exception->getCode(), $exception->getMessage());
-        }
-    }
 }

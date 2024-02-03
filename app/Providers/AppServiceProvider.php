@@ -12,8 +12,12 @@ use App\Services\ICurrenciesService;
 use App\Services\CurrenciesService;
 use App\Services\External\ICurrencyLayerService;
 use App\Services\External\CurrencyLayerService;
+use App\Services\IConversionService;
+use App\Services\ConversionService;
 use App\Services\IProxyService;
+use App\Services\ITransactionsService;
 use App\Services\ProxyService;
+use App\Services\TransactionsService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,10 +32,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IExchangeRatesRepository::class, ExchangeRatesRepository::class);
 
         // services
+        $this->app->bind(IConversionService::class, ConversionService::class);
         $this->app->bind(ICurrenciesService::class, CurrenciesService::class);
         $this->app->bind(ICurrencyLayerService::class, CurrencyLayerService::class);
         $this->app->bind(IExchangeRatesService::class, ExchangeRatesService::class);
         $this->app->bind(IProxyService::class, ProxyService::class);
+        $this->app->bind(ITransactionsService::class, TransactionsService::class);
     }
 
     /**

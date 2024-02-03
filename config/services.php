@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'currency_layer' => [
+        'app_id' => env('CURRENCY_LAYER_APP_ID'),
+        'base_url' => env('CURRENCY_LAYER_BASE_URL'),
+    ],
+
 ];
