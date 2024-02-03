@@ -26,8 +26,14 @@ class UpdateExchangeRatesCommand extends Command
      */
     public function handle(IExchangeRatesService $service)
     {
-        $this->info('Updating exchange rates...');
-        $service->update();
-        $this->info('Done!');
+        try {
+            $this->info('Updating exchange rates...');
+
+            $service->updateAll();
+
+            $this->info('Done!');
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
     }
 }

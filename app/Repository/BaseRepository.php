@@ -6,7 +6,7 @@ use Illuminate\Database\Query\Builder;
 
 abstract class BaseRepository
 {
-    protected Builder $builder;
+    private Builder $builder;
 
     public function __construct()
     {
@@ -14,4 +14,9 @@ abstract class BaseRepository
     }
 
     abstract protected function getTable(): Builder;
+
+    protected function getBuilder(): Builder
+    {
+        return $this->builder->clone();
+    }
 }
