@@ -6,21 +6,17 @@
 
 - Create .env file, will not be included in the repo, but I will send you it separately
 
-`cp .env.example .env`
+```
+cp .env.example .env
+```
 
-- Create all required files
+- Than run commands
 
 ```
 touch storage/logs/laravel.log
+composer install
+./vendor/bin/sail up -d
 ```
-
-- Run
-
-`composer install`
-
-- Run
-
-`./vendor/bin/sail up -d`
 
 - Go to http://localhost
 
