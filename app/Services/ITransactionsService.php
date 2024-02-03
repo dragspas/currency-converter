@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Services\Entities\Transaction;
 use stdClass;
 
 interface ITransactionsService
 {
-    public function store(int $toCurrencyId, float $amount): stdClass;
+    public function store(Transaction $transaction): Transaction;
 }

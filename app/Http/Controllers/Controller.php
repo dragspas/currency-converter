@@ -17,10 +17,17 @@ class Controller extends BaseController
         return response()->json(['message' => $message], $code);
     }
 
-    protected function getSuccessResponse(Collection|array $data, int $code = 200): JsonResponse
+    protected function getSuccessResponse(Collection|array $data, int $code = 200, string $message = ''): JsonResponse
     {
-        return response()->json([
-            'success' => true, 'data' => $data
-        ], $code);
+        $output  = [
+            'success' => true,
+            'data' => $data
+        ];
+
+        if (!empty($message)) {
+            $output['message']  = $message;
+        }
+
+        return response()->json($output, $code);
     }
 }

@@ -41,8 +41,8 @@ class ConversionService implements IConversionService
         }
 
         if ($save) {
-            // $this->transactionsService->store($toCurrencyId, $transaction->amount_paid_usd);
-            // $this->converterContext->sendNotification($transaction);
+            $this->transactionsService->store($transaction);
+            $this->converterContext->sendNotification($transaction);
         }
 
         return $transaction;

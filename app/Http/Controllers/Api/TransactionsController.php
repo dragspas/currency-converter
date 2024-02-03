@@ -26,7 +26,7 @@ class TransactionsController extends Controller
 
             $transaction = $this->conversionService->convertFromDefault($validated['to_currency_id'], $validated['amount'], true);
 
-            return $this->getSuccessResponse(['message' => 'Transaction created successfully.', 'transaction' => $transaction]);
+            return $this->getSuccessResponse(['transaction' => $transaction], 200, 'Transaction created successfully.');
         } catch (\Exception $exception) {
             Log::error('POST /api/v1/transactions failed.', [
                 ...$validated,

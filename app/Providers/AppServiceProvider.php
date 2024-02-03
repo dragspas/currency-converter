@@ -6,6 +6,8 @@ use App\Repository\CurrenciesRepository;
 use App\Repository\ExchangeRatesRepository;
 use App\Repository\ICurrenciesRepository;
 use App\Repository\IExchangeRatesRepository;
+use App\Repository\ITransactionsRepository;
+use App\Repository\TransactionsRepository;
 use App\Services\IExchangeRatesService;
 use App\Services\ExchangeRatesService;
 use App\Services\ICurrenciesService;
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         // repositories
         $this->app->bind(ICurrenciesRepository::class, CurrenciesRepository::class);
         $this->app->bind(IExchangeRatesRepository::class, ExchangeRatesRepository::class);
+        $this->app->bind(ITransactionsRepository::class, TransactionsRepository::class);
 
         // services
         $this->app->bind(IConversionService::class, ConversionService::class);

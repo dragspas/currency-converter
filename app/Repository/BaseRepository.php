@@ -3,7 +3,6 @@
 namespace App\Repository;;
 
 use Illuminate\Database\Query\Builder;
-use stdClass;
 
 abstract class BaseRepository
 {
@@ -15,6 +14,11 @@ abstract class BaseRepository
     }
 
     abstract protected function getTable(): Builder;
+
+    public function insert(array $attributes): int
+    {
+        return $this->getBuilder()->insertGetId($attributes);
+    }
 
     protected function getBuilder(): Builder
     {

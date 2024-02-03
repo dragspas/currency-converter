@@ -12,8 +12,6 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
 
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -54,15 +52,14 @@
 
                                 <div class="alert alert-success d-none" role="alert"></div>
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white mb-3">Currency converter</h2>
+                                <h2 class="mt-6 text-xl font-semibold text-gray-900 mb-3">Currency converter</h2>
 
                                 <form method="POST" id="calculator-form">
-                                    @csrf
                                     <div class="input-group mb-3n">
                                         <select class="form-select" aria-label="Select currency" id="to_currency_id" name="to_currency_id">
                                             <option selected disabled>Choose...</option>
                                         </select>
-                                        <input type="number" class="form-control" min=".1" placeholder="Enter amount" aria-label="Amount" name="amount" id="amount" required>
+                                        <input type="number" class="form-control" placeholder="Enter amount" aria-label="Amount" name="amount" id="amount" required>
                                         <button type="button" class="btn btn-secondary" id="calculate">Calculate</button>
                                         <input type="text" class="form-control" placeholder="Amount ot pay" id="calculated_amount" readonly>
                                         <span class="input-group-text">USD</span>
@@ -125,7 +122,6 @@
                             $('#calculated_amount').val(response.data.amount);
                         } else {
                             displayError(response.message);
-                            $('#calculated_amount').val('');
                         }
                     },
                     error: function (xhr, status, error) {
@@ -137,34 +133,52 @@
             $('#calculator-form').submit(function(e) {
                 e.preventDefault();
             
-                let formData = new FormData(this);
-                console.log(formData);
-                
-                // $.ajax({
-                //         type:'POST',
-                //         url: url,
-                //         data: formData,
-                //         contentType: false,
-                //         processData: false,
-                //         success: (response) => {
-                //             alert('Form submitted successfully');
-                //             location.reload();
-                //         },
-                        // error: function(response){
-                        //     displayError('Could not purchase. Please try again.');
-                        // }
-                // });
+                let data = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost/api/v1/transactions',
+                    data,
+                    dataType: 'json',
+                    success: (response) => {
+                        if (response.success) {
+                            $('#calculated_amount').val(response.data.transaction.amount_paid_usd);
+                            displaySuccess(response.message);
+                        } else {
+                            displayError(response.message);
+                        }
+                    },
+                    error: function(response){
+                        displayError('Could not purchase. Please try again.');
+                    }
+                });
             });
 
             function displayError(msg) {
-                 $('.alert-danger')
+                $('.alert-danger')
+                    .text(msg)
+                    .removeClass('d-none').addClass('show');
+                    
+                    setTimeout(() => {
+                        $('.alert-danger')
+                        .text('')
+                        .removeClass('show').addClass('d-none');
+
+                        $('#calculated_amount').val('');
+                }, 5000);
+            }
+
+            function displaySuccess(msg) {
+                $('.alert-success')
                     .text(msg)
                     .removeClass('d-none').addClass('show');
 
                 setTimeout(() => {
-                    $('.alert-danger')
+                    $('.alert-success')
                         .text('')
                         .removeClass('show').addClass('d-none');
+
+                        $('#calculated_amount').val('');
+                        $('#amount').val('');
                 }, 5000);
             }
         });

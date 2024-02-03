@@ -2,24 +2,34 @@
 
 namespace App\Services;
 
-use stdClass;
+use App\Repository\ITransactionsRepository;
+use App\Services\Entities\Transaction;
 
 class TransactionsService implements ITransactionsService
 {
-    private ICurrenciesService $currenciesService;
+    private ITransactionsRepository $transactionsRepository;
 
     public function __construct(
-        ICurrenciesService $currenciesService
+        ITransactionsRepository $transactionsRepository
     ) {
-        $this->currenciesService = $currenciesService;
+        $this->transactionsRepository = $transactionsRepository;
     }
 
-    public function store(int $toCurrencyId, float $amount): stdClass
+    public function store(Transaction $transaction): Transaction
     {
-        $conversion = $this->currenciesService->convertFromDefault($toCurrencyId, $amount);
+        $transactionId = $this->transactionsRepository->insert([
+            'currency_id' => $transaction->currency_id,
+            'exchange_rate' => $transaction->exchange_rate,
+            'surcharge_percentage' => $transaction->surcharge_percentage,
+            'surcharge_amount' => $transaction->surcharge_amount,
+            'foreign_currency_amount' => $transaction->foreign_currency_amount,
+            'amount_paid_usd' => $transaction->amount_paid_usd,
+            'discount_percentage' => $transaction->discount_percentage,
+            'discount_amount' => $transaction->discount_amount
+        ]);
 
-        return (object) [
-            'amount' => $conversion,
-        ];
+        $transaction->id = $transactionId;
+
+        return $transaction;
     }
 }

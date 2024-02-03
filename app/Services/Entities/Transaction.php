@@ -4,6 +4,7 @@ namespace App\Services\Entities;
 
 class Transaction
 {
+    public ?int $id = null;
     public int $currency_id;
     public float $exchange_rate;
     public float $surcharge_percentage;
@@ -12,5 +13,4 @@ class Transaction
     public float $amount_paid_usd;
     public float $discount_percentage;
     public float $discount_amount;
-    public ?\DateTime $created_at;
 }
