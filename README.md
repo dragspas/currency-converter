@@ -23,7 +23,7 @@ touch storage/logs/laravel.log
 composer install
 
 ./vendor/bin/sail artisan key:generate
-./vendor/vendor/bin/sail artisan optimize
+./vendor/bin/sail artisan config:cache
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan migrate
 ```
