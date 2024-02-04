@@ -34,7 +34,7 @@ composer install
 ./vendor/bin/sail artisan rates:update
 ```
 
-- After successfuly transaction, run command to trigger queue
+- After successful transaction, run command:
 
 ```
 ./vendor/bin/sail artisan queue:work
