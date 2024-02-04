@@ -1,6 +1,6 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-## Starting project
+## Instructions
 
 - Clone project from GitHub https://github.com/dragspas/currency-converter
 
@@ -16,9 +16,24 @@ cp .env.example .env
 touch storage/logs/laravel.log
 composer install
 ./vendor/bin/sail up -d
+./vendor/bin/sail artisan migrate
 ```
 
 - Go to http://localhost
+
+- To update exchange rates run
+
+```
+./vendor/bin/sail artisan rates:update
+```
+
+- After successfuly transaction, run command to trigger queue
+
+```
+./vendor/bin/sail artisan queue:work
+```
+
+- To review sent emails, go to http://localhost:8025
 
 ## Comments
 

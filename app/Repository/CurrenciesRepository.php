@@ -42,7 +42,7 @@ class CurrenciesRepository extends BaseRepository implements ICurrenciesReposito
             ->join('exchange_rates', function ($join) use ($toCurrencyId) {
                 $join
                     ->on('currencies.id', '=', 'exchange_rates.from_currency_id')
-                    ->join('currencies as to_currency', function ($join) use ($toCurrencyId) {
+                    ->join('currencies as to_currency', function ($join) {
                         $join
                             ->on('exchange_rates.to_currency_id', 'to_currency.id')
                             ->select(['to_currency.surcharge', 'to_currency.discount']);

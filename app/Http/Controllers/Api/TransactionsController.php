@@ -43,7 +43,7 @@ class TransactionsController extends Controller
 
             $transaction = $this->conversionService->convertFromDefault($validated['to_currency_id'], $validated['amount']);
 
-            return $this->getSuccessResponse(['amount' => $transaction->amount_paid_usd]);
+            return $this->getSuccessResponse(['amount' => $transaction->amountPaidUsd]);
         } catch (\Exception $exception) {
             Log::error('GET /api/v1/transactions/calculate failed.', [
                 ...$validated,

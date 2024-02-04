@@ -24,7 +24,7 @@ class CurrencyLayerService implements ICurrencyLayerService
 
         foreach ($grouped as $fromCode => $group) {
             $response = $this->makeExchangeRatesRequest($fromCode, implode(',', array_keys($group['currenciesMap'])));
-            $output = array_merge($output, $this->prepareForUpdate($group['from_currency_id'], $group['currenciesMap'], $response));
+            $output = array_merge($output, $this->prepareForUpdate($group['fromCurrencyId'], $group['currenciesMap'], $response));
         }
 
         return $output;
@@ -52,6 +52,10 @@ class CurrencyLayerService implements ICurrencyLayerService
     {
         $appId = config('services.currency_layer.app_id');
         $url = config('services.currency_layer.base_url');
+
+        if (empty($appId) || empty($url)) {
+            throw new \Exception('Currency layer service is not configured');
+        }
 
         try {
             $result = $this->proxy->get(
@@ -84,7 +88,7 @@ class CurrencyLayerService implements ICurrencyLayerService
     {
         return $exchangeRates->groupBy('from_currency_code')->map(function ($items) {
             return [
-                'from_currency_id' => $items->first()->from_currency_id,
+                'fromCurrencyId' => $items->first()->from_currency_id,
                 'currenciesMap' => $items->pluck('to_currency_id', 'to_currency_code')->toArray()
             ];
         });

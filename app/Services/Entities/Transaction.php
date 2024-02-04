@@ -4,13 +4,20 @@ namespace App\Services\Entities;
 
 class Transaction
 {
+    public int $currencyId;
+    public float $exchangeRate;
+    public float $foreignCurrencyAmount;
+    public float $surchargePercentage = 0.0;
+    public float $discountPercentage = 0.0;
     public ?int $id = null;
-    public int $currency_id;
-    public float $exchange_rate;
-    public float $surcharge_percentage;
-    public float $surcharge_amount;
-    public float $foreign_currency_amount;
-    public float $amount_paid_usd;
-    public float $discount_percentage;
-    public float $discount_amount;
+    public ?float $surchargeAmount = null;
+    public ?float $amountPaidUsd = null;
+    public ?float $discountAmount = null;
+
+    public function __construct(int $currencyId, float $exchangeRate, float $foreignCurrencyAmount)
+    {
+        $this->currencyId = $currencyId;
+        $this->exchangeRate = $exchangeRate;
+        $this->foreignCurrencyAmount = $foreignCurrencyAmount;
+    }
 }

@@ -141,7 +141,7 @@
                     dataType: 'json',
                     success: (response) => {
                         if (response.success) {
-                            $('#calculated_amount').val(response.data.transaction.amount_paid_usd);
+                            $('#calculated_amount').val(response.data.transaction.amountPaidUsd);
                             displaySuccess(response.message);
                         } else {
                             displayError(response.message);

@@ -12,8 +12,8 @@ class ExchangeRatesRepository extends BaseRepository implements IExchangeRatesRe
     {
         $builder = $this->getBuilder();
         // @note
-        // we could add here one validation step, to assert columns existence
-        // also instead of usinf arrays, could be Entity class
+        // we could add here one validation step, to assert columns existance
+        // also instead of using arrays, could be Entity class
         // to keep it simple, will not implement Entity classes
         // but we could discuss my ideas
         foreach ($conditions as $key => $value) {

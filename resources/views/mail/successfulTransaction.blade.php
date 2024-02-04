@@ -1,0 +1,1 @@
+You have a new transaction from currency converter. Amount paid: {{ $amount }} USD.

@@ -18,14 +18,14 @@ class TransactionsService implements ITransactionsService
     public function store(Transaction $transaction): Transaction
     {
         $transactionId = $this->transactionsRepository->insert([
-            'currency_id' => $transaction->currency_id,
-            'exchange_rate' => $transaction->exchange_rate,
-            'surcharge_percentage' => $transaction->surcharge_percentage,
-            'surcharge_amount' => $transaction->surcharge_amount,
-            'foreign_currency_amount' => $transaction->foreign_currency_amount,
-            'amount_paid_usd' => $transaction->amount_paid_usd,
-            'discount_percentage' => $transaction->discount_percentage,
-            'discount_amount' => $transaction->discount_amount
+            'currency_id' => $transaction->currencyId,
+            'exchange_rate' => $transaction->exchangeRate,
+            'surcharge_percentage' => $transaction->surchargePercentage,
+            'surcharge_amount' => $transaction->surchargeAmount,
+            'foreign_currency_amount' => $transaction->foreignCurrencyAmount,
+            'amount_paid_usd' => $transaction->amountPaidUsd,
+            'discount_percentage' => $transaction->discountPercentage,
+            'discount_amount' => $transaction->discountAmount
         ]);
 
         $transaction->id = $transactionId;

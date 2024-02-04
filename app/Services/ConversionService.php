@@ -27,16 +27,13 @@ class ConversionService implements IConversionService
         $conversionDetails = $this->currenciesService->getDefaultWithExchangeRate($toCurrencyId);
         $this->converterContext->setConverter(CurrencyName::from($conversionDetails->to_currency_code));
 
-        $transaction = new Transaction();
-        $transaction->currency_id = $toCurrencyId;
-        $transaction->exchange_rate = $conversionDetails->rate;
-        $transaction->surcharge_percentage = $conversionDetails->surcharge ?? 0.00;
-        $transaction->foreign_currency_amount = $amount;
-        $transaction->discount_percentage = $conversionDetails->discount ?? 0.00;
+        $transaction = new Transaction($toCurrencyId, $conversionDetails->rate, $amount);
+        $transaction->surchargePercentage = (float) $conversionDetails->surcharge;
+        $transaction->discountPercentage = (float) $conversionDetails->discount;
 
         $transaction = $this->converterContext->calculate($transaction);
 
-        if ($transaction->amount_paid_usd === 0.00) {
+        if ($transaction->amountPaidUsd === 0.00) {
             throw new \Exception('Conversion amount is to small.', 201);
         }
 
