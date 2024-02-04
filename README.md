@@ -2,7 +2,7 @@
 
 ## Currency Converter
 
-The repository contains a simple interface for currency conversion, built with PHP 8.3, Laravle v10 and MySQL. The application provides updated exchange rates through a third-party API.
+The repository contains a simple interface for currency conversion, built with PHP 8.3, Laravle v10 and MySQL. The application provides exchange rates update through a third-party API.
 
 ## Requirements
 
