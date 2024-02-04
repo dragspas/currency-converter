@@ -4,11 +4,16 @@
 
 - Clone project from GitHub https://github.com/dragspas/currency-converter
 
+```
+git clone https://github.com/dragspas/currency-converter.git
+```
+
 - Create .env file, will not be included in the repo
 
 ```
 cp .env.example .env
 ```
+You need to add value for CURRENCY_LAYER_APP_ID
 
 - Than run commands
 
