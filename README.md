@@ -13,6 +13,7 @@ git clone https://github.com/dragspas/currency-converter.git
 ```
 cp .env.example .env
 ```
+
 You need to add value for CURRENCY_LAYER_APP_ID
 
 - Than run commands
@@ -20,11 +21,12 @@ You need to add value for CURRENCY_LAYER_APP_ID
 ```
 touch storage/logs/laravel.log
 composer install
+
+./vendor/bin/sail artisan key:generate
+./vendor/vendor/bin/sail artisan optimize
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan migrate
 ```
-
-- Go to http://localhost
 
 - To update exchange rates run
 
@@ -37,6 +39,8 @@ composer install
 ```
 ./vendor/bin/sail artisan queue:work
 ```
+
+- Go to http://localhost and make conversions
 
 - To review sent emails, go to http://localhost:8025
 
