@@ -1,5 +1,15 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
+## Currency Converter
+
+The repository contains a simple interface for currency conversion, built with PHP 8.3, Laravle v10 and MySQL. The application provides updated exchange rates through a third-party API.
+
+## Requirements
+
+- Docker installed on your machine
+- PHP 8.3 installed
+- Composer installed
+
 ## Instructions
 
 - Clone project from GitHub https://github.com/dragspas/currency-converter
